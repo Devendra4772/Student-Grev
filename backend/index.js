@@ -68,7 +68,7 @@ const authMiddleware = (req, res, next) => {
     const token = header.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.user = decoded;
+    req.user = decoded; // { id: ... }
     next();
 
   } catch (err) {
@@ -128,7 +128,25 @@ app.post("/api/login", async (req, res) => {
    GRIEVANCE ROUTES
 =========================== */
 
-// Submit grievance
+// 🔍 SEARCH (IMPORTANT: FIRST)
+app.get("/api/grievances/search", authMiddleware, async (req, res) => {
+  try {
+    const { title = "" } = req.query;
+
+    const data = await Grievance.find({
+      title: { $regex: title, $options: "i" },
+      studentId: req.user.id
+    });
+
+    res.json(data);
+
+  } catch (err) {
+    console.log("SEARCH ERROR:", err);
+    res.status(500).json({ message: "Search error" });
+  }
+});
+
+// ➕ Create grievance
 app.post("/api/grievances", authMiddleware, async (req, res) => {
   try {
     const grievance = new Grievance({
@@ -144,19 +162,13 @@ app.post("/api/grievances", authMiddleware, async (req, res) => {
   }
 });
 
-// Get all grievances (only user's)
+// 📋 Get all grievances
 app.get("/api/grievances", authMiddleware, async (req, res) => {
   const data = await Grievance.find({ studentId: req.user.id });
   res.json(data);
 });
 
-// Get by ID
-app.get("/api/grievances/:id", authMiddleware, async (req, res) => {
-  const item = await Grievance.findById(req.params.id);
-  res.json(item);
-});
-
-// Update grievance
+// ✏️ Update grievance
 app.put("/api/grievances/:id", authMiddleware, async (req, res) => {
   const updated = await Grievance.findByIdAndUpdate(
     req.params.id,
@@ -166,22 +178,16 @@ app.put("/api/grievances/:id", authMiddleware, async (req, res) => {
   res.json(updated);
 });
 
-// Delete grievance
+// ❌ Delete grievance
 app.delete("/api/grievances/:id", authMiddleware, async (req, res) => {
   await Grievance.findByIdAndDelete(req.params.id);
   res.json({ message: "Deleted successfully" });
 });
 
-// Search grievance
-app.get("/api/grievances/search", authMiddleware, async (req, res) => {
-  const { title } = req.query;
-
-  const result = await Grievance.find({
-    title: { $regex: title, $options: "i" },
-    studentId: req.user.id
-  });
-
-  res.json(result);
+// 🔍 Get by ID (LAST)
+app.get("/api/grievances/:id", authMiddleware, async (req, res) => {
+  const item = await Grievance.findById(req.params.id);
+  res.json(item);
 });
 
 /* ===========================

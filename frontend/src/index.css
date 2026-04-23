@@ -1,0 +1,201 @@
+/* ========================= */
+/* 🔥 ROOT VARIABLES */
+/* ========================= */
+:root {
+  --bg: linear-gradient(135deg, #0f172a, #1e293b);
+  --card: rgba(255, 255, 255, 0.05);
+  --border: rgba(255, 255, 255, 0.1);
+  --primary: #8b5cf6;
+  --secondary: #22c55e;
+  --danger: #ef4444;
+  --text: #f8fafc;
+}
+
+/* ========================= */
+/* RESET */
+/* ========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========================= */
+/* BODY */
+/* ========================= */
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ========================= */
+/* CONTAINER */
+/* ========================= */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container.dashboard {
+  align-items: flex-start;
+  padding-top: 40px;
+}
+
+/* ========================= */
+/* CARD */
+/* ========================= */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(25px);
+  padding: 30px;
+  width: 360px;
+  border-radius: 18px;
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 60px rgba(139, 92, 246, 0.6);
+}
+
+/* Dashboard */
+.dashboard .card {
+  width: 720px;
+}
+
+/* ========================= */
+/* TEXT */
+/* ========================= */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* ========================= */
+/* INPUT */
+/* ========================= */
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  outline: none;
+  background: rgba(255,255,255,0.05);
+  color: var(--text);
+  transition: 0.3s;
+}
+
+input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px var(--primary);
+}
+
+/* ========================= */
+/* BUTTON */
+/* ========================= */
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 10px;
+  background: linear-gradient(45deg, #8b5cf6, #6366f1);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #8b5cf6;
+}
+
+/* Small buttons */
+.btn-small {
+  width: auto;
+  padding: 6px 12px;
+  margin-left: 5px;
+}
+
+/* Danger */
+.btn-danger {
+  background: var(--danger);
+}
+
+.btn-danger:hover {
+  box-shadow: 0 0 10px var(--danger);
+}
+
+/* ========================= */
+/* NAVBAR */
+/* ========================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 30px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar a {
+  color: var(--text);
+  margin-left: 15px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.navbar a:hover {
+  color: var(--primary);
+}
+
+/* ========================= */
+/* GRIEVANCE CARD */
+/* ========================= */
+.grievance {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  padding: 12px;
+  margin: 12px 0;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.grievance:hover {
+  background: rgba(255,255,255,0.08);
+  transform: scale(1.01);
+}
+
+/* ========================= */
+/* SEARCH */
+/* ========================= */
+.search-box {
+  display: flex;
+  gap: 10px;
+}
+
+.search-box input {
+  flex: 1;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+@media (max-width: 768px) {
+  .dashboard .card {
+    width: 95%;
+  }
+}
